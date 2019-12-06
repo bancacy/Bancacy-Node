@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bancacy/Bancacy-Node/issues"
   },
-  "homepage": "https://github.com/bancacy/Bancacy-Node#readme"
+  "homepage": "https://github.com/bancacy/Bancacy-Node#readme",
+  "dependencies": {
+    "ethereumjs-tx": "^2.1.1"
+  }
 }
