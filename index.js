@@ -28,7 +28,7 @@ const rl = readline.createInterface({
 rl.question('Please enter your Ethereum private-key:', (answer) => {
 
 // The Ethereum address of the smart contract
-var addr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
+var MedianOracle = "0x899847c95fc40903b30519b9dbfe81482b73f482";
 // privateKey is the user's input
 var privateKey = answer;
 // privateKeyBuffer
@@ -37,9 +37,9 @@ var privateKeyBuffer = EthUtil.toBuffer(privateKey);
 // Generating Wallet from the private key
 var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
 // Getting Address from the Wallet
-var thisAddr = wallet.getAddressString();
+var MedianOracle = wallet.getAddressString();
 
-console.log("Your Ethereum Address is:" + thisAddr);
+console.log("Your Ethereum Address is:" + MedianOracle);
 
 
 
@@ -52,7 +52,7 @@ data = contract.methods.pushReport("80000000000000000000").encodeABI();
 // Build the transaction
 let transaction = {
     to: addr,
-    from : thisAddr,
+    from : MedianOracle,
     value: 0,
     gas: 400000,
     gasPrice: 10 * 1.0e9,
@@ -67,7 +67,7 @@ let transaction = {
   function Send (transaction) {
    
           
-    web3.eth.getTransactionCount(thisAddr, (error, nonce) => {
+    web3.eth.getTransactionCount(MedianOracle, (error, nonce) => {
         if(!error) { 
             
             // Add nonce to the transaction object.
