@@ -1,6 +1,11 @@
 // Require Web3 Module
 var Web3 = require('web3');
+// Require ethjs-signer Module
 const sign = require('ethjs-signer').sign;
+// Require ethereumjs-wallet Module
+var Wallet = require('ethereumjs-wallet');
+// Require ethereumjs-util Module
+var EthUtil = require('ethereumjs-util');
 
 
 
@@ -18,38 +23,33 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+
 // Wait for user input - private key
-rl.question('Please enter your Ethereum private-key ', (answer) => {
-
-
-var Wallet = require('ethereumjs-wallet');
-var EthUtil = require('ethereumjs-util');
+rl.question('Please enter your Ethereum private-key:', (answer) => {
 
 // The Ethereum address of the smart contract
 var addr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
+// privateKey is the user's input
 var privateKey = answer;
+// privateKeyBuffer
 var privateKeyBuffer = EthUtil.toBuffer(privateKey);
 
-
+// Generating Wallet from the private key
 var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
+// Getting Address from the Wallet
 var thisAddr = wallet.getAddressString();
 
-console.log(thisAddr);
-
+console.log("Your Ethereum Address is:" + thisAddr);
 
 
 
 
 
 // Build a new variable based on the web3 API including the ABI and address of the contract
-var MedianOracle = new web3.eth.Contract(abi, addr);
-
-
-
-
-let contract = new web3.eth.Contract(abi,addr );
+let contract = new web3.eth.Contract(abi,addr);
+// Build the Data of pushReport
 data = contract.methods.pushReport("80000000000000000000").encodeABI();
-console.log("Dd");
+// Build the transaction
 let transaction = {
     to: addr,
     from : thisAddr,
@@ -58,12 +58,12 @@ let transaction = {
     gasPrice: 10 * 1.0e9,
     data: data
   };
-  console.log("Dd");
 
+  // Sending the transaction
   Send(transaction);
 
 
-
+// Getting the nonce, signing the transaction and broadcasting
   function Send (transaction) {
    
           
@@ -75,7 +75,6 @@ let transaction = {
             console.log(nonce);
             // Sign the transaction and send.
             web3.eth.sendSignedTransaction(sign(transaction,privateKey), async (error, txHash) => {
-                console.log("Dd");
               //console.log(txHash);
               if(txHash) { 
                 console.log("Data Sent!");
@@ -96,11 +95,12 @@ let transaction = {
             else {
               
                 console.log('There was a problem sending your nonce.');
-                //alert(error);
               }
-      
+    
     });
 
-}  rl.close();
+} 
+// closing rI
+ rl.close();
 
 });
