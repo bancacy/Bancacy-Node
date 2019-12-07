@@ -10,14 +10,41 @@ var abi = [ { "constant": false, "inputs": [ { "internalType": "address", "name"
 
 // The Ethereum address of the smart contract
 
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Please enter your Ethereum private-key ', (answer) => {
+
+
+
+
+
+
+
+
+
+
+
+
 var Wallet = require('ethereumjs-wallet');
-const wallet = Wallet.generate();
-console.log("privateKey: " + wallet.getPrivateKeyString());
-console.log("address: " + wallet.getAddressString());
+var EthUtil = require('ethereumjs-util');
+
 
 var addr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
-var thisAddr = "0xB453e15aEBd5C8557A49b7354Ef29F938c54fF3d";
-var privateKey = "0x1ad7ca452524d78a19a8063ab520ef8dfb73f3947572a5d1d98cccfa07f7c81d";
+var privateKey = answer;
+var privateKeyBuffer = EthUtil.toBuffer(privateKey);
+
+
+var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
+var thisAddr = wallet.getAddressString();
+
+console.log(thisAddr);
+
+
 
 
 
@@ -83,3 +110,7 @@ let transaction = {
     });
 
 }
+});
+
+
+rl.close();
