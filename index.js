@@ -109,8 +109,6 @@ let transaction = {
       
     });
 
-}
+}  rl.close();
+
 });
-
-
-rl.close();
