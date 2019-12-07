@@ -35,7 +35,7 @@ let transaction = {
     to: addr,
     from : thisAddr,
     value: 0,
-    gas: 4000,
+    gas: 400000,
     gasPrice: 10 * 1.0e9,
     data: data
   };
@@ -60,6 +60,7 @@ let transaction = {
               //console.log(txHash);
               if(txHash) { 
                 console.log("Data Sent!");
+                console.log(txHash);
               }
                 if(error) {
                   
