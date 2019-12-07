@@ -94,7 +94,7 @@ let transaction = {
           }
             else {
               
-                console.log('There was a problem sending your nonce.');
+                console.log('There was a problem getting your nonce.');
               }
     
     });
