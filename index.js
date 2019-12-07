@@ -35,7 +35,7 @@ let transaction = {
     to: addr,
     from : thisAddr,
     value: 0,
-    gas: 400000,
+    gas: 4000,
     gasPrice: 10 * 1.0e9,
     data: data
   };
@@ -68,7 +68,10 @@ let transaction = {
                     //alert(error);
                   }
                 
-            });
+            }).catch((error) => {
+                console.log(error);
+                
+              });;
           }
             else {
               
