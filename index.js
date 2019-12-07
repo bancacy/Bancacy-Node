@@ -30,3 +30,52 @@ let transaction = {
     data: data
   };
 
+
+
+
+  send : function (transaction, password) {
+    walletKeystore.load(password, (ks) => {
+      ks.keyFromPassword(password, (error, pwDerivedKey) => {
+        if(error) {
+          this.loading = false;
+          alert('Password key error.');
+          return;
+        } else {
+          ks.generateNewAddress(pwDerivedKey, 1);
+          // Broadcast Transaction
+          
+          web3.eth.getTransactionCount(this.walletAddress, (error, nonce) => {
+            // Add nonce to the transaction object.
+            transaction.nonce = nonce;
+            // Sign the transaction and send.
+            web3.eth.sendSignedTransaction(sign(transaction, '0x' + ks.exportPrivateKey(this.walletAddress, pwDerivedKey)), async (error, txHash) => {
+              //console.log(txHash);
+              if(txHash) { 
+                alert("Investment Claimed!");
+              
+              
+                // Set pending tx.
+                let pendingTx = {
+                  key: txHash,
+                  address: this.walletAddress
+                };
+              
+                //console.log("pendingTx",pendingTx)
+                // Return to summary screen.
+                this.updateWallet();
+                //this.$router.push({name: 'Wallet', params: {walletAddress: this.walletAddress}});
+                
+              } 
+              if(error) {
+              
+                this.loading = false;
+                alert('There was a problem claiming this transaction.');
+                //alert(error);
+              }
+            });
+          });
+        }
+      });
+    });
+  }
+
