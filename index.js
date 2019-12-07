@@ -9,9 +9,24 @@ var abi = [ { "constant": false, "inputs": [ { "internalType": "address", "name"
 
 // The Ethereum address of the smart contract
 var addr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
+var thisAddr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
 
 // Build a new variable based on the web3 API including the ABI and address of the contract
 var MedianOracle = new web3.eth.Contract(abi, addr);
 
 // Call and return the result to the console
-MedianOracle.methods.getData().call().then(console.log);
+MedianOracle.methods.pushReport("80000000000000000000").send().then(console.log);
+
+
+let contract = new web3.eth.Contract(abi,addr );
+data = contract.methods.pushReport("80000000000000000000").encodeABI();
+
+let transaction = {
+    to: addr,
+    from : thisAddr,
+    value: 0,
+    gas: 100000,
+    gasPrice: 10 * 1.0e9,
+    data: data
+  };
+
