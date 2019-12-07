@@ -1,5 +1,6 @@
 // Require Web3 Module
 var Web3 = require('web3');
+const sign = require('ethjs-signer').sign;
 
 // Show web3 where it needs to look for the Ethereum node
 web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/8a53bb3b5fa14748818f25b9ea6f73ee'));
@@ -10,6 +11,8 @@ var abi = [ { "constant": false, "inputs": [ { "internalType": "address", "name"
 // The Ethereum address of the smart contract
 var addr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
 var thisAddr = "0x899847c95fc40903b30519b9dbfe81482b73f482";
+var privateKey = "0x899847c95fc40903b30519b9dbfe81482b73f482";
+
 
 // Build a new variable based on the web3 API including the ABI and address of the contract
 var MedianOracle = new web3.eth.Contract(abi, addr);
@@ -30,52 +33,31 @@ let transaction = {
     data: data
   };
 
+  Send(transaction);
 
 
 
-  send : function (transaction, password) {
-    walletKeystore.load(password, (ks) => {
-      ks.keyFromPassword(password, (error, pwDerivedKey) => {
-        if(error) {
-          this.loading = false;
-          alert('Password key error.');
-          return;
-        } else {
-          ks.generateNewAddress(pwDerivedKey, 1);
-          // Broadcast Transaction
+  function Send (transaction) {
+   
           
-          web3.eth.getTransactionCount(this.walletAddress, (error, nonce) => {
+         nonce = web3.eth.getTransactionCount(thisAddr);
+        
             // Add nonce to the transaction object.
             transaction.nonce = nonce;
             // Sign the transaction and send.
-            web3.eth.sendSignedTransaction(sign(transaction, '0x' + ks.exportPrivateKey(this.walletAddress, pwDerivedKey)), async (error, txHash) => {
+            web3.eth.sendSignedTransaction(sign(transaction,privateKey), async (error, txHash) => {
               //console.log(txHash);
               if(txHash) { 
-                alert("Investment Claimed!");
-              
-              
-                // Set pending tx.
-                let pendingTx = {
-                  key: txHash,
-                  address: this.walletAddress
-                };
-              
-                //console.log("pendingTx",pendingTx)
-                // Return to summary screen.
-                this.updateWallet();
-                //this.$router.push({name: 'Wallet', params: {walletAddress: this.walletAddress}});
-                
-              } 
-              if(error) {
-              
-                this.loading = false;
-                alert('There was a problem claiming this transaction.');
-                //alert(error);
-              }
-            });
-          });
-        }
-      });
-    });
-  }
+                console.log("Data Sent!");
 
+                if(error) {
+                  
+                    this.loading = false;
+                    console.log('There was a problem sending your Data.');
+                    //alert(error);
+                  }
+                }
+            });
+        
+    }
+           
