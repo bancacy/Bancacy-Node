@@ -17,12 +17,13 @@ request('https://api3.stex.com/public/ticker/1073', function (error, response, d
   if (!error && response.statusCode == 200) {
     var parsedData = JSON.parse(data);
     var ethPrice = parsedData.data.last;
-    console.log(ethPrice);
 
+// Get ETH price in USD from CoinBase
 request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, response, data) {
   if (!error && response.statusCode == 200) {
     var parsedData = JSON.parse(data);
     var bid = parsedData.data.amount;
+    var priceBNY = bid * ethPrice;
     console.log(bid * ethPrice);
    
   }
