@@ -19,6 +19,11 @@ request('https://api3.stex.com/public/ticker/1073', function (error, response, d
     var ethPrice = parsedData.data.last;
     console.log(ethPrice);
 
+request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, response, data) {
+  if (!error && response.statusCode == 200) {
+    var parsedData = JSON.parse(data);
+    var bid = parsedData.data.amount;
+    console.log(bid * ethPrice);
    
   }
 })
