@@ -11,13 +11,22 @@ var EthUtil = require('ethereumjs-util');
 
 
 
-
+// Get BNY price in ETH from Stex
 var request = require('request');
-request('https://api3.stex.com/public/ticker/1073', function (error, response, body) {
+request('https://api3.stex.com/public/ticker/1073', function (error, response, data) {
   if (!error && response.statusCode == 200) {
-    console.log(body) 
+    var parsedData = JSON.parse(data);
+    var ethPrice = parsedData.data.last;
+    console.log(ethPrice);
+
+   
   }
 })
+  }
+})
+
+
+
 
 
 
