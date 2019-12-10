@@ -9,6 +9,26 @@ var EthUtil = require('ethereumjs-util');
 
 
 
+
+
+
+var request = require('request');
+request('https://api3.stex.com/public/ticker/1073', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body) 
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
 // Show web3 where it needs to look for the Ethereum node
 web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/8a53bb3b5fa14748818f25b9ea6f73ee'));
 
