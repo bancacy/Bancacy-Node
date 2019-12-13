@@ -22,9 +22,12 @@ request('https://api3.stex.com/public/ticker/1073', function (error, response, d
 request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, response, data) {
   if (!error && response.statusCode == 200) {
     var parsedData = JSON.parse(data);
-    var bid = parsedData.data.amount;
-    var priceBNY = bid * ethPrice;
-    console.log(bid * ethPrice);
+    var USDprice = parsedData.data.amount;
+    var priceBNY = USDprice * ethPrice;
+    console.log(priceBNY);
+    var finalBNY = Math.pow(10,18)* priceBNY;
+    console.log(finalBNY);
+    console.log(Math.floor(finalBNY));
    
   }
 })
