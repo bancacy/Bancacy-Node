@@ -10,6 +10,10 @@ var EthUtil = require('ethereumjs-util');
 
 
 
+function startLog() {
+
+   
+setTimeout(startLog, 60);
 
 // Get BNY price in ETH from Stex
 var request = require('request');
@@ -142,3 +146,7 @@ let transaction = {
  rl.close();
 
 });
+
+}
+
+startLog();
