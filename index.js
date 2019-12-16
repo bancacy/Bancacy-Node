@@ -11,6 +11,10 @@ var privateKey;
 
 // Input from the user
 const readline = require('readline');
+const fs = require('fs');
+const writeStream = fs.createWriteStream('file.txt');
+const pathName = writeStream.path;
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -52,10 +56,12 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     finalBNY = Math.floor(finalBNY);
     if (index == priceArray.length-1){
         priceArray[index] = finalBNY;
+        writeStream.write(`${finalBNY}\n`)
         index=0;
     }
     else{
         priceArray[index] = finalBNY;
+        writeStream.write(`${finalBNY}\n`)
         index++;
     }
     console.dir(JSON.stringify(priceArray));
@@ -63,7 +69,25 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
   }
 })
   }
+
 })
+// the finish event is emitted when all data has been flushed from the stream
+writeStream.on('finish', () => {
+    console.log(`wrote all the array data to file ${pathName}`);
+ });
+ 
+ // handle the errors on the write process
+ writeStream.on('error', (err) => {
+     console.error(`There is an error writing the file ${pathName} => ${err}`)
+ });
+
+
+
+
+
+
+
+
 
 }
 startLog();
