@@ -45,10 +45,12 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
   if (!error && response.statusCode == 200) {
     var parsedData = JSON.parse(data);
     var USDprice = parsedData.data.amount;
+    // TEST ETH = 150
+    USDprice = 150;
     var priceBNY = USDprice * ethPrice;
     var finalBNY = Math.pow(10,18)* priceBNY;
-    console.log(Math.floor(finalBNY));
-    if (index == 4){
+    finalBNY = Math.floor(finalBNY);
+    if (index == priceArray.length-1){
         priceArray[index] = finalBNY;
         index=0;
     }
