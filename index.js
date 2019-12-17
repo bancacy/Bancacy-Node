@@ -12,6 +12,8 @@ var privateKey;
 // Input from the user
 const readline = require('readline');
 const fs = require('fs');
+
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -32,7 +34,7 @@ var index = 0;
 function startLog() {
 
    
-setTimeout(startLog, 5 * 1000);
+setTimeout(startLog, 2 * 1000);
 
 // Get BNY price in ETH from Stex
 var request = require('request');
