@@ -12,9 +12,6 @@ var privateKey;
 // Input from the user
 const readline = require('readline');
 const fs = require('fs');
-const writeStream = fs.createWriteStream('file.txt');
-const pathName = writeStream.path;
-
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -29,13 +26,13 @@ rl.question('Please enter your Ethereum private-key:', (answer) => {
 // closing rI
 rl.close();
 
-const priceArray = new Array(5);
+const priceArray = new Array(10080);
 var index = 0;
 
 function startLog() {
 
    
-setTimeout(startLog, 15 * 1000);
+setTimeout(startLog, 5 * 1000);
 
 // Get BNY price in ETH from Stex
 var request = require('request');
@@ -56,12 +53,10 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     finalBNY = Math.floor(finalBNY);
     if (index == priceArray.length-1){
         priceArray[index] = finalBNY;
-        writeStream.write(`${finalBNY}\n`)
         index=0;
     }
     else{
         priceArray[index] = finalBNY;
-        writeStream.write(`${finalBNY}\n`)
         index++;
     }
     console.dir(JSON.stringify(priceArray));
@@ -69,26 +64,30 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
   }
 })
   }
-
 })
+
+
+const writeStream = fs.createWriteStream('file.txt');
+
+const pathName = writeStream.path;
+
+let array = priceArray;
+
+// write each value of the array on the file breaking line
+array.forEach(value => writeStream.write(`${value}\n`));
+
 // the finish event is emitted when all data has been flushed from the stream
 writeStream.on('finish', () => {
-    console.log(`wrote all the array data to file ${pathName}`);
- });
- 
- // handle the errors on the write process
- writeStream.on('error', (err) => {
-     console.error(`There is an error writing the file ${pathName} => ${err}`)
- });
+   console.log(`wrote all the array data to file ${pathName}`);
+});
 
+// handle the errors on the write process
+writeStream.on('error', (err) => {
+    console.error(`There is an error writing the file ${pathName} => ${err}`)
+});
 
-
-
-
-
-
-
-
+// close the stream
+writeStream.end();
 }
 startLog();
 
