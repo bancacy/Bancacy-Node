@@ -17,11 +17,7 @@ const Fs = require('fs');
 
 
 
-function createdDate (file) {  
-  const { birthtimeMs } = Fs.statSync(file);
 
-  return birthtimeMs
-}
 
 
 
@@ -233,6 +229,10 @@ let transaction = {
 
 
 
+//Returns the creation time of the parm file
+function createdDate (file) {  
+  const { birthtimeMs } = Fs.statSync(file);
 
-
+  return birthtimeMs
+}
 
