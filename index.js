@@ -13,6 +13,17 @@ var privateKey;
 var readline = require('readline');
 var fs = require('fs');
 var stream = require('stream');
+const Fs = require('fs');
+
+
+
+function createdDate (file) {  
+  const { birthtimeMs } = Fs.statSync(file);
+
+  return birthtimeMs
+}
+
+
 
 var writeStream = fs.createReadStream('./file.txt');
 var outstream = new stream;
@@ -218,3 +229,10 @@ let transaction = {
 
 
 });
+
+
+
+
+
+
+
