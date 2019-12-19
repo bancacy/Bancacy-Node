@@ -23,15 +23,14 @@ var count= 0;
 
 rl1.on('line', function(line) {
   // process line here
-  console.log(count);
   priceArrayFile[count]=(line);
   count++;
 });
+
 rl1.on('close', function() {
   //delete last data in array
   priceArrayFile[count-1] = undefined;
-  console.log(count-1);
-  console.log(priceArrayFile[count-1] + "   " +priceArrayFile[count] );
+  priceArrayFile[count-2] = undefined;
   console.log('arr', priceArrayFile);
 });
 
