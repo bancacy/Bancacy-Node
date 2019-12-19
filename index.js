@@ -10,12 +10,13 @@ var EthUtil = require('ethereumjs-util');
 var privateKey;
 
 // Input from the user
-const readline = require('readline');
-const fs = require('fs');
+var readline = require('readline');
+var fs = require('fs');
 var stream = require('stream');
 
-const writeStream = fs.createReadStream('./file.txt');
+var writeStream = fs.createReadStream('./file.txt');
 var outstream = new stream;
+var rl = readline.createInterface(writeStream, outstream);
 
 
 
@@ -77,7 +78,7 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
 
 const writeStream = fs.createWriteStream('file.txt');
 
-const pathName = writeStregam.path;
+const pathName = writeStream.path;
 
 let array = priceArray;
 
