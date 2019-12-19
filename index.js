@@ -15,8 +15,9 @@ var fs = require('fs');
 var stream = require('stream');
 const Fs = require('fs');
 
-
-if(now - createdDate('./file.txt') <= 600){
+var creationDiff = now - createdDate('./file.txt');
+var missingDataSec = creationDiff / 2;
+if(creationDiff <= 600){
 
 
 var writeStream = fs.createReadStream('./file.txt');
@@ -37,8 +38,20 @@ rl1.on('line', function(line) {
 rl1.on('close', function() {
   //delete last data in the array
   priceArrayFile[count-1] = undefined;
+  if( priceArrayFile[count-2] != undefined ){
+    priceArrayFile[count-1] = priceArrayFile[count-2];
+  }
   console.log('arr', priceArrayFile);
 });
+
+// adding the missing data from the last recived data
+while(missingDataSec != 0 && count != 10080){
+
+  
+  priceArrayFile
+
+  missingDataSec--;
+}
 
 }
 
