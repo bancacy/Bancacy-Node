@@ -12,6 +12,12 @@ var privateKey;
 // Input from the user
 const readline = require('readline');
 const fs = require('fs');
+var stream = require('stream');
+
+const writeStream = fs.createReadStream('./file.txt');
+var outstream = new stream;
+
+
 
 
 const rl = readline.createInterface({
@@ -71,7 +77,7 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
 
 const writeStream = fs.createWriteStream('file.txt');
 
-const pathName = writeStream.path;
+const pathName = writeStregam.path;
 
 let array = priceArray;
 
