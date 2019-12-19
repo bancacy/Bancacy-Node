@@ -33,6 +33,8 @@ rl1.on('close', function() {
 
 
 
+
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -80,7 +82,6 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
         priceArray[index] = finalBNY;
         index++;
     }
-    console.dir(JSON.stringify(priceArray));
 
   }
 })
