@@ -16,14 +16,13 @@ var stream = require('stream');
 const Fs = require('fs');
 
 
-
-
-
+if(now - createdDate('./file.txt') <= 600){
 
 
 var writeStream = fs.createReadStream('./file.txt');
 var outstream = new stream;
 var rl1 = readline.createInterface(writeStream, outstream);
+
 
 const priceArrayFile = new Array(10080);
 var count= 0;
@@ -34,13 +33,14 @@ rl1.on('line', function(line) {
   count++;
 });
 
+
 rl1.on('close', function() {
-  //delete last data in array
+  //delete last data in the array
   priceArrayFile[count-1] = undefined;
-  priceArrayFile[count-2] = undefined;
   console.log('arr', priceArrayFile);
 });
 
+}
 
 
 
