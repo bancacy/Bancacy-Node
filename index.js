@@ -16,7 +16,19 @@ var stream = require('stream');
 
 var writeStream = fs.createReadStream('./file.txt');
 var outstream = new stream;
-var rl = readline.createInterface(writeStream, outstream);
+var rl1 = readline.createInterface(writeStream, outstream);
+
+var arr = [];
+
+rl1.on('line', function(line) {
+  // process line here
+  arr.push(line);
+});
+
+rl1.on('close', function() {
+  // do something on finish here
+  console.log('arr', arr);
+});
 
 
 
