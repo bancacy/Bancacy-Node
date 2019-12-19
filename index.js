@@ -18,17 +18,24 @@ var writeStream = fs.createReadStream('./file.txt');
 var outstream = new stream;
 var rl1 = readline.createInterface(writeStream, outstream);
 
-var arr = [];
+const priceArrayFile = new Array(10080);
+var count= 0;
 
 rl1.on('line', function(line) {
   // process line here
-  arr.push(line);
+  console.log(count);
+  priceArrayFile[count]=(line);
+  count++;
+});
+rl1.on('close', function() {
+  //delete last data in array
+  priceArrayFile[count-1] = undefined;
+  console.log(count-1);
+  console.log(priceArrayFile[count-1] + "   " +priceArrayFile[count] );
+  console.log('arr', priceArrayFile);
 });
 
-rl1.on('close', function() {
-  // do something on finish here
-  console.log('arr', arr);
-});
+
 
 
 
