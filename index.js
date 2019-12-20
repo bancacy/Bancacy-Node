@@ -15,18 +15,26 @@ var readline = require('readline');
 var fs = require('fs');
 var stream = require('stream');
 const Fs = require('fs');
+let seconds;
+const priceArrayFile = new Array(10080);
 
-var creationDiff = Data.now() - createdDate('./file.txt');
-var missingDataSec = creationDiff / 2;
-if(creationDiff <= 600){
 
+
+fs.stat("./file.txt", function(err, stats){
+   seconds = (new Date().getTime() - stats.mtime) / 1000;
+  console.log(`File modified ${seconds} ago`);
+
+  var missingDataSec = seconds / 0.02;
+console.log( " " + seconds + " " + missingDataSec);
+if(seconds <= 600){
+
+console.log("Your stored Data is within 10 minutes");
 
 var writeStream = fs.createReadStream('./file.txt');
 var outstream = new stream;
 var rl1 = readline.createInterface(writeStream, outstream);
 
 
-const priceArrayFile = new Array(10080);
 var count= 0;
 
 rl1.on('line', function(line) {
@@ -39,7 +47,9 @@ rl1.on('line', function(line) {
 rl1.on('close', function() {
   //delete last data in the array
   priceArrayFile[count-1] = undefined;
+  console.log(priceArrayFile[count-2]);
   if( priceArrayFile[count-2] != undefined ){
+    
     lastData = priceArrayFile[count-2];
     priceArrayFile[count-1] = priceArrayFile[count-2];
   }
@@ -47,19 +57,26 @@ rl1.on('close', function() {
     lastData = undefined;
   }
   console.log('arr', priceArrayFile);
-});
 
-
+  console.log(missingDataSec + " " + lastData);
 // adding the missing data from the last recived data
-while(missingDataSec != 0 && count != 10080 && lastData != undefined){
+while(missingDataSec > 0 && count != 10080 && lastData != undefined){
 
   
   priceArrayFile[count] = lastData;
   count++;
   missingDataSec--;
 }
+console.log('arr', priceArrayFile);
+});
+
+
 
 }
+});
+console.log('arr', priceArrayFile);
+
+
 
 
 
@@ -250,8 +267,8 @@ let transaction = {
 
 //Returns the creation time of the parm file
 function createdDate (file) {  
-  const { birthtimeMs } = Fs.statSync(file);
+  const { birthtime  } = Fs.statSync(file);
 
-  return birthtimeMs
+  return birthtime 
 }
 
