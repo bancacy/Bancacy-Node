@@ -8,6 +8,7 @@ var Wallet = require('ethereumjs-wallet');
 var EthUtil = require('ethereumjs-util');
 
 var privateKey;
+var lastData;
 
 // Input from the user
 var readline = require('readline');
@@ -15,7 +16,7 @@ var fs = require('fs');
 var stream = require('stream');
 const Fs = require('fs');
 
-var creationDiff = now - createdDate('./file.txt');
+var creationDiff = Data.now() - createdDate('./file.txt');
 var missingDataSec = creationDiff / 2;
 if(creationDiff <= 600){
 
@@ -39,17 +40,22 @@ rl1.on('close', function() {
   //delete last data in the array
   priceArrayFile[count-1] = undefined;
   if( priceArrayFile[count-2] != undefined ){
+    lastData = priceArrayFile[count-2];
     priceArrayFile[count-1] = priceArrayFile[count-2];
+  }
+  else{
+    lastData = undefined;
   }
   console.log('arr', priceArrayFile);
 });
 
+
 // adding the missing data from the last recived data
-while(missingDataSec != 0 && count != 10080){
+while(missingDataSec != 0 && count != 10080 && lastData != undefined){
 
   
-  priceArrayFile
-
+  priceArrayFile[count] = lastData;
+  count++;
   missingDataSec--;
 }
 
