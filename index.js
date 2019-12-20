@@ -9,6 +9,7 @@ var EthUtil = require('ethereumjs-util');
 
 var privateKey;
 var lastData;
+var  restored = false;
 
 // Input from the user
 var readline = require('readline');
@@ -24,9 +25,11 @@ fs.stat("./file.txt", function(err, stats){
    seconds = (new Date().getTime() - stats.mtime) / 1000;
   console.log(`File modified ${seconds} ago`);
 
-  var missingDataSec = seconds / 0.02;
+  var missingDataSec = seconds / 2;
 console.log( " " + seconds + " " + missingDataSec);
 if(seconds <= 600){
+
+  restored = true;
 
 console.log("Your stored Data is within 10 minutes");
 
@@ -98,7 +101,6 @@ rl.question('Please enter your Ethereum private-key:', (answer) => {
 // closing rI
 rl.close();
 
-const priceArray = new Array(10080);
 var index = 0;
 
 function startLog() {
@@ -123,12 +125,12 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     var priceBNY = USDprice * ethPrice;
     var finalBNY = Math.pow(10,18)* priceBNY;
     finalBNY = Math.floor(finalBNY);
-    if (index == priceArray.length-1){
-        priceArray[index] = finalBNY;
+    if (index == priceArrayFile.length-1){
+      priceArrayFile[index] = finalBNY;
         index=0;
     }
     else{
-        priceArray[index] = finalBNY;
+      priceArrayFile[index] = finalBNY;
         index++;
     }
 
@@ -142,7 +144,7 @@ const writeStream = fs.createWriteStream('file.txt');
 
 const pathName = writeStream.path;
 
-let array = priceArray;
+let array = priceArrayFile;
 
 // write each value of the array on the file breaking line
 array.forEach(value => writeStream.write(`${value}\n`));
