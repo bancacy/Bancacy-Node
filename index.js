@@ -102,6 +102,10 @@ rl.question('Please enter your Ethereum private-key:', (answer) => {
 rl.close();
 
 var index = 0;
+if(restored){
+index =count;
+}
+
 
 function startLog() {
 
