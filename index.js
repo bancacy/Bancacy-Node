@@ -25,7 +25,7 @@ var fs = require('fs');
 var stream = require('stream');
 const Fs = require('fs');
 let seconds;
-const priceArrayFile = new Array(16);
+const priceArrayFile = new Array(arraySize);
 
 
 
@@ -34,7 +34,7 @@ fs.stat("./file.txt", function(err, stats){
    seconds = (new Date().getTime() - stats.mtime) / 1000;
   console.log(`File modified ${seconds} ago`);
 
-  var missingDataSec = seconds / 2;
+  var missingDataSec = seconds / freqOfData;
 console.log( " " + seconds + " " + missingDataSec);
 if(seconds <= 600){
 
@@ -134,7 +134,7 @@ function startLog() {
 
   
    
-setTimeout(startLog, 2 * 1000);
+setTimeout(startLog, freqOfData * 1000);
 
 // Get BNY price in ETH from Stex
 var request = require('request');
