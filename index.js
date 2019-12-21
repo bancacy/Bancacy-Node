@@ -192,7 +192,7 @@ const writeStream2 = fs.createWriteStream('pointer.txt');
 const pathName = writeStream.path;
 const pathName2 = writeStream2.path;
 
-writeStream2.write((`${index-1}\n`));
+writeStream2.write((`${index}\n`));
 // the finish event is emitted when all data has been flushed from the stream
 writeStream2.on('finish', () => {
    console.log(`wrote the pointer into the file ${pathName2}`);
