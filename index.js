@@ -184,13 +184,16 @@ writeStream.end();
 // Call sendReport evrey 6 hours
 const job = new CronJob({
   // Run at 20:00 Central time
-  cronTime: '00 14 18 * * 1-5',
+  cronTime: '00 14 19 * * 1-5',
   onTick: function() {
       // Send report
       console.log('Sending Report!!');
+      if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
       var avg = averageArray(priceArrayFile);
       sendReport(avg);
-      
+      }
+      else{console.log("Empty array, Node must run at least 1 week to provide data");
+    }
   },
   start: true,
   timeZone: 'US/Central'
@@ -318,11 +321,11 @@ function averageArray (array){
      sum = sum + parseInt(array[i]);
     }
     else{
-      return (sum / (i+1))
+      return (Math.floor(sum / (i+1)))
     }
   }
 
-  return (sum / (i+1))
+  return (Math.floor(sum / (i+1)))
 
 }
 
