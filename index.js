@@ -7,9 +7,14 @@ var Wallet = require('ethereumjs-wallet');
 // Require ethereumjs-util Module
 var EthUtil = require('ethereumjs-util');
 
+const CronJob = require('cron').CronJob;
+
+
+
 var privateKey;
 var lastData;
 var  restored = false;
+var count= 0;
 
 // Input from the user
 var readline = require('readline');
@@ -22,6 +27,7 @@ const priceArrayFile = new Array(10080);
 
 
 fs.stat("./file.txt", function(err, stats){
+  if(!err){
    seconds = (new Date().getTime() - stats.mtime) / 1000;
   console.log(`File modified ${seconds} ago`);
 
@@ -38,7 +44,6 @@ var outstream = new stream;
 var rl1 = readline.createInterface(writeStream, outstream);
 
 
-var count= 0;
 
 rl1.on('line', function(line) {
   // process line here
@@ -76,6 +81,7 @@ console.log('arr', priceArrayFile);
 
 
 }
+  }
 });
 console.log('arr', priceArrayFile);
 
@@ -107,8 +113,15 @@ index =count;
 }
 
 
+
+
+
+
+
+
 function startLog() {
 
+  
    
 setTimeout(startLog, 2 * 1000);
 
@@ -166,7 +179,22 @@ writeStream.on('error', (err) => {
 // close the stream
 writeStream.end();
 }
+
+// Call sendReport evrey 6 hours
+const job = new CronJob({
+  // Run at 05:00 Central time, only on weekdays
+  cronTime: '00 14 18 * * 1-5',
+  onTick: function() {
+      // Run whatever you like here..
+      console.log('CronJob ran!!');
+      
+  },
+  start: true,
+  timeZone: 'US/Central'
+});
+
 startLog();
+
 
 
 
@@ -224,6 +252,12 @@ let transaction = {
   Send(transaction);
 
 
+
+
+
+
+
+
 // Getting the nonce, signing the transaction and broadcasting
   function Send (transaction) {
    
@@ -267,6 +301,8 @@ let transaction = {
 
 
 });
+
+
 
 
 
