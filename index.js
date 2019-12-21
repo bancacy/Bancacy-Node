@@ -16,6 +16,9 @@ var lastData;
 var  restored = false;
 var count= 0;
 
+var arraySize = 16; // 10080 on mainnet
+var freqOfData = 2; // 60 on Mainnet
+
 // Input from the user
 var readline = require('readline');
 var fs = require('fs');
@@ -52,11 +55,9 @@ rl1.on('line', function(line) {
   count++;
   
 });
-console.log(count);
 
 
 
-console.log(count);
 
 rl1.on('close', function() {
   //delete last data in the array
@@ -86,7 +87,6 @@ while(missingDataSec > 0  && lastData != undefined){
   missingDataSec--;
   }
 }
-console.log(count);
 console.log('arr', priceArrayFile);
 });
 
