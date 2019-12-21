@@ -17,7 +17,8 @@ var  restored = false;
 var count= 0;
 
 var arraySize = 16; // 10080 on mainnet
-var freqOfData = 2; // 60 on Mainnet
+var freqOfData = 10; // 60 on Mainnet
+var restoringWindow = 600;
 
 // Input from the user
 var readline = require('readline');
@@ -36,7 +37,7 @@ fs.stat("./file.txt", function(err, stats){
 
   var missingDataSec = seconds / freqOfData;
 console.log( " " + seconds + " " + missingDataSec);
-if(seconds <= 600){
+if(seconds <= restoringWindow){
 
   restored = true;
 
@@ -210,6 +211,7 @@ const job = new CronJob({
   start: true,
   timeZone: 'US/Central'
 });
+
 
 startLog();
 
