@@ -15,6 +15,7 @@ var privateKey;
 var lastData;
 var  restored = false;
 var count= 0;
+var index = 0;
 
 var arraySize = 16; // 10080 on mainnet
 var freqOfData = 10; // 60 on Mainnet
@@ -62,7 +63,6 @@ rl1.on('line', function(line) {
 
 rl1.on('close', function() {
   //delete last data in the array
-  console.log(count);
 
   priceArrayFile[count-1] = undefined;
   if( priceArrayFile[count-2] != undefined ){
@@ -74,9 +74,22 @@ rl1.on('close', function() {
     lastData = undefined;
   }
 
+  var writeStream3 = fs.createReadStream('./pointer.txt');
+  var outstream2 = new stream;
+  var rl2 = readline.createInterface(writeStream3, outstream2);
+
+  rl2.on('line', function(line) {
+    // process line here
+    count = line;
+    
+  });
+  rl2.on('close', function() {
+  });
+
+
 // adding the missing data from the last recived data
 while(missingDataSec > 0  && lastData != undefined){
-
+   console.log(count);
   if(count > priceArrayFile.length-2){
     priceArrayFile[priceArrayFile.length-1] = lastData;
     count =0;
@@ -119,14 +132,14 @@ rl.question('Please enter your Ethereum private-key:', (answer) => {
 // closing rI
 rl.close();
 
-var index = 0;
+
+
+
+
+
 if(restored){
-index =count;
-}
-
-
-
-
+  index =count;
+  }
 
 
 
@@ -161,6 +174,7 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     else{
       priceArrayFile[index] = finalBNY;
         index++;
+        console.log(index + " real");
     }
 
   }
@@ -170,8 +184,23 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
 
 
 const writeStream = fs.createWriteStream('file.txt');
+const writeStream2 = fs.createWriteStream('pointer.txt');
 
 const pathName = writeStream.path;
+const pathName2 = writeStream2.path;
+
+writeStream2.write((`${index}\n`));
+// the finish event is emitted when all data has been flushed from the stream
+writeStream2.on('finish', () => {
+   console.log(`wrote the pointer into the file ${pathName2}`);
+   console.log(index);
+});
+
+// handle the errors on the write process
+writeStream2.on('error', (err) => {
+    console.error(`There is an error writing the file ${pathName2} => ${err}`)
+});
+writeStream2.end();
 
 
 // write each value of the array on the file breaking line
@@ -189,7 +218,16 @@ writeStream.on('error', (err) => {
 
 // close the stream
 writeStream.end();
+
 }
+
+
+
+
+
+
+
+
 
 
 
