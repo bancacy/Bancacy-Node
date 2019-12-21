@@ -183,17 +183,19 @@ writeStream.end();
 
 // Call sendReport evrey 6 hours
 const job = new CronJob({
-  // Run at 05:00 Central time, only on weekdays
+  // Run at 20:00 Central time
   cronTime: '00 14 18 * * 1-5',
   onTick: function() {
-      // Run whatever you like here..
-      console.log('CronJob ran!!');
+      // Send report
+      console.log('Sending Report!!');
+      var avg = averageArray(priceArrayFile);
+      sendReport(avg);
       
   },
   start: true,
   timeZone: 'US/Central'
 });
-console.log("Average = " + averageArray(priceArrayFile) );
+
 startLog();
 
 
@@ -205,7 +207,7 @@ startLog();
 
 
 
-function sendReport(){
+function sendReport(dataReport){
 
 
 // Show web3 where it needs to look for the Ethereum node
@@ -238,7 +240,7 @@ console.log("Your Ethereum Address is:" + addr);
 // Build a new variable based on the web3 API including the ABI and address of the contract
 let contract = new web3.eth.Contract(abi,addr);
 // Build the Data of pushReport
-data = contract.methods.pushReport("80000000000000000000").encodeABI();
+data = contract.methods.pushReport(dataReport).encodeABI();
 // Build the transaction
 let transaction = {
     to: addr,
@@ -314,6 +316,9 @@ function averageArray (array){
 
     if(array[i] != undefined){
      sum = sum + parseInt(array[i]);
+    }
+    else{
+      return (sum / (i+1))
     }
   }
 
