@@ -101,6 +101,9 @@ while(missingDataSec > 0  && lastData != undefined){
   missingDataSec--;
   }
 }
+if(restored){
+  index =count;
+  }
 console.log('arr', priceArrayFile);
 });
 
@@ -137,9 +140,7 @@ rl.close();
 
 
 
-if(restored){
-  index =count;
-  }
+
 
 
 
