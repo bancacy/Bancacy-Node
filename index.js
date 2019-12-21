@@ -48,17 +48,20 @@ var rl1 = readline.createInterface(writeStream, outstream);
 rl1.on('line', function(line) {
   // process line here
   priceArrayFile[count]=(line);
+  
   count++;
+  
 });
 console.log(count);
 
-if(count > priceArrayFile.length-1){
-  count = priceArrayFile.length -1;
-}
+
+
 console.log(count);
 
 rl1.on('close', function() {
   //delete last data in the array
+  console.log(count);
+
   priceArrayFile[count-1] = undefined;
   if( priceArrayFile[count-2] != undefined ){
     
@@ -72,8 +75,8 @@ rl1.on('close', function() {
 // adding the missing data from the last recived data
 while(missingDataSec > 0  && lastData != undefined){
 
-  if(count > 15){
-    priceArrayFile[count] = lastData;
+  if(count > priceArrayFile.length-2){
+    priceArrayFile[priceArrayFile.length-1] = lastData;
     count =0;
     missingDataSec--;
   }
