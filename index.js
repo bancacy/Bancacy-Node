@@ -161,10 +161,9 @@ const writeStream = fs.createWriteStream('file.txt');
 
 const pathName = writeStream.path;
 
-let array = priceArrayFile;
 
 // write each value of the array on the file breaking line
-array.forEach(value => writeStream.write(`${value}\n`));
+priceArrayFile.forEach(value => writeStream.write(`${value}\n`));
 
 // the finish event is emitted when all data has been flushed from the stream
 writeStream.on('finish', () => {
@@ -194,7 +193,7 @@ const job = new CronJob({
   start: true,
   timeZone: 'US/Central'
 });
-
+console.log("Average = " + averageArray(priceArrayFile) );
 startLog();
 
 
@@ -309,9 +308,18 @@ let transaction = {
 //Returns the average of the array
 function averageArray (array){
   var i;
-  for(i = 1;  i <= array.length+1 ; i++){
-   
+  var sum;
+  console.log(array.length);
+  for(i = 0;  i <= array.length ; i++){
+    if(array[i] != undefined){
+      console.log(sum);
+
+   sum = sum + parseInt(array[i]);
+    }
   }
+  console.log(sum);
+
+  return (sum / (i+1))
 
 }
 
