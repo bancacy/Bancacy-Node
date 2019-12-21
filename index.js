@@ -307,17 +307,15 @@ let transaction = {
 
 //Returns the average of the array
 function averageArray (array){
-  var i;
-  var sum;
-  console.log(array.length);
-  for(i = 0;  i <= array.length ; i++){
-    if(array[i] != undefined){
-      console.log(sum);
+  var i = 0;
+  var sum = 0;;
 
-   sum = sum + parseInt(array[i]);
+  for(i = 0;  i <= array.length ; i++){
+
+    if(array[i] != undefined){
+     sum = sum + parseInt(array[i]);
     }
   }
-  console.log(sum);
 
   return (sum / (i+1))
 
