@@ -22,7 +22,7 @@ var fs = require('fs');
 var stream = require('stream');
 const Fs = require('fs');
 let seconds;
-const priceArrayFile = new Array(10080);
+const priceArrayFile = new Array(16);
 
 
 
@@ -50,12 +50,16 @@ rl1.on('line', function(line) {
   priceArrayFile[count]=(line);
   count++;
 });
+console.log(count);
 
+if(count > priceArrayFile.length-1){
+  count = priceArrayFile.length -1;
+}
+console.log(count);
 
 rl1.on('close', function() {
   //delete last data in the array
   priceArrayFile[count-1] = undefined;
-  console.log(priceArrayFile[count-2]);
   if( priceArrayFile[count-2] != undefined ){
     
     lastData = priceArrayFile[count-2];
@@ -64,17 +68,22 @@ rl1.on('close', function() {
   else{
     lastData = undefined;
   }
-  console.log('arr', priceArrayFile);
 
-  console.log(missingDataSec + " " + lastData);
 // adding the missing data from the last recived data
-while(missingDataSec > 0 && count != 10080 && lastData != undefined){
+while(missingDataSec > 0  && lastData != undefined){
 
-  
+  if(count > 15){
+    priceArrayFile[count] = lastData;
+    count =0;
+    missingDataSec--;
+  }
+  else{
   priceArrayFile[count] = lastData;
   count++;
   missingDataSec--;
+  }
 }
+console.log(count);
 console.log('arr', priceArrayFile);
 });
 
@@ -83,7 +92,6 @@ console.log('arr', priceArrayFile);
 }
   }
 });
-console.log('arr', priceArrayFile);
 
 
 
@@ -192,7 +200,8 @@ const job = new CronJob({
       var avg = averageArray(priceArrayFile);
       sendReport(avg);
       }
-      else{console.log("Empty array, Node must run at least 1 week to provide data");
+      else{
+        console.log("Empty array, Node must run at least 1 week to provide data");
     }
   },
   start: true,
@@ -315,7 +324,7 @@ function averageArray (array){
   var i = 0;
   var sum = 0;;
 
-  for(i = 0;  i <= array.length ; i++){
+  for(i = 0;  i < array.length ; i++){
 
     if(array[i] != undefined){
      sum = sum + parseInt(array[i]);
