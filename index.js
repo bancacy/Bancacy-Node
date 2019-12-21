@@ -180,6 +180,8 @@ writeStream.on('error', (err) => {
 writeStream.end();
 }
 
+
+
 // Call sendReport evrey 6 hours
 const job = new CronJob({
   // Run at 05:00 Central time, only on weekdays
@@ -304,8 +306,14 @@ let transaction = {
 
 
 
+//Returns the average of the array
+function averageArray (array){
+  var i;
+  for(i = 1;  i <= array.length+1 ; i++){
+   
+  }
 
-
+}
 
 //Returns the creation time of the parm file
 function createdDate (file) {  
