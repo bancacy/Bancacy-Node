@@ -84,27 +84,29 @@ rl1.on('close', function() {
     
   });
   rl2.on('close', function() {
+    // adding the missing data from the last recived data
+while(missingDataSec > 0  && lastData != undefined){
+  console.log(count);
+ if(count > priceArrayFile.length-2){
+   priceArrayFile[priceArrayFile.length-1] = lastData;
+   count =0;
+   missingDataSec--;
+ }
+ else{
+ priceArrayFile[count] = lastData;
+ count++;
+ missingDataSec--;
+ }
+}
+if(restored){
+ index =count;
+ }
+ console.log('arr', priceArrayFile);
+
   });
 
 
-// adding the missing data from the last recived data
-while(missingDataSec > 0  && lastData != undefined){
-   console.log(count);
-  if(count > priceArrayFile.length-2){
-    priceArrayFile[priceArrayFile.length-1] = lastData;
-    count =0;
-    missingDataSec--;
-  }
-  else{
-  priceArrayFile[count] = lastData;
-  count++;
-  missingDataSec--;
-  }
-}
-if(restored){
-  index =count;
-  }
-console.log('arr', priceArrayFile);
+
 });
 
 
@@ -190,7 +192,7 @@ const writeStream2 = fs.createWriteStream('pointer.txt');
 const pathName = writeStream.path;
 const pathName2 = writeStream2.path;
 
-writeStream2.write((`${index}\n`));
+writeStream2.write((`${index-1}\n`));
 // the finish event is emitted when all data has been flushed from the stream
 writeStream2.on('finish', () => {
    console.log(`wrote the pointer into the file ${pathName2}`);
