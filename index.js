@@ -18,7 +18,7 @@ var count= 0;
 var index = 0;
 
 var arraySize = 16; // 10080 on mainnet
-var freqOfData = 10; // 60 on Mainnet
+var freqOfData = 30; // 60 on Mainnet
 var restoringWindow = 600;
 
 // Input from the user
@@ -181,18 +181,24 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     }
 
   }
+  file_RW();
 })
   }
 })
 
 
-const writeStream = fs.createWriteStream('file.txt');
+
+}
+
+
+function file_RW(){
+  const writeStream = fs.createWriteStream('file.txt');
 const writeStream2 = fs.createWriteStream('pointer.txt');
 
 const pathName = writeStream.path;
 const pathName2 = writeStream2.path;
 
-writeStream2.write((`${index}\n`));
+writeStream2.write((`${index-1}\n`));
 // the finish event is emitted when all data has been flushed from the stream
 writeStream2.on('finish', () => {
    console.log(`wrote the pointer into the file ${pathName2}`);
@@ -221,11 +227,7 @@ writeStream.on('error', (err) => {
 
 // close the stream
 writeStream.end();
-
 }
-
-
-
 
 
 
