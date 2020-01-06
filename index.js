@@ -172,16 +172,20 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     finalBNY = Math.floor(finalBNY);
     if (index == priceArrayFile.length-1){
       priceArrayFile[index] = finalBNY;
+        
+        file_RW();
         index=0;
     }
     else{
       priceArrayFile[index] = finalBNY;
-        index++;
+        
         console.log(index + " real");
+        file_RW();
+        index++;
     }
 
   }
-  file_RW();
+  
 })
   }
 })
@@ -200,6 +204,7 @@ const pathName = writeStream.path;
 const pathName2 = writeStream2.path;
 
 writeStream2.write((`${index}\n`));
+
 // the finish event is emitted when all data has been flushed from the stream
 writeStream2.on('finish', () => {
    console.log(`wrote the pointer into the file ${pathName2}`);
