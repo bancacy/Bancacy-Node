@@ -192,13 +192,14 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
 
 
 function file_RW(){
+
   const writeStream = fs.createWriteStream('file.txt');
 const writeStream2 = fs.createWriteStream('pointer.txt');
 
 const pathName = writeStream.path;
 const pathName2 = writeStream2.path;
 
-writeStream2.write((`${index-1}\n`));
+writeStream2.write((`${index}\n`));
 // the finish event is emitted when all data has been flushed from the stream
 writeStream2.on('finish', () => {
    console.log(`wrote the pointer into the file ${pathName2}`);
@@ -227,6 +228,7 @@ writeStream.on('error', (err) => {
 
 // close the stream
 writeStream.end();
+
 }
 
 
