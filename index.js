@@ -377,7 +377,8 @@ let transaction = {
 //Returns the average of the array
 function averageArray (array){
   var i = 0;
-  var sum = 0;;
+  var sum = 0;
+  var missing =0;
 
   for(i = 0;  i < array.length ; i++){
 
@@ -385,10 +386,12 @@ function averageArray (array){
      sum = sum + parseInt(array[i]);
     }
     else{
-      return (Math.floor(sum / (i+1)))
+      missing++;
     }
   }
-
+  if(missing > 0 && missing < 10){
+    sum= (sum/(i+1)) * missing;
+  }
   return (Math.floor(sum / (i+1)))
 
 }
