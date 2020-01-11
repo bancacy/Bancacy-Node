@@ -390,7 +390,8 @@ function averageArray (array){
     }
   }
   if(missing > 0 && missing < 10){
-    sum= (sum/(i+1)) * missing;
+    sum= ((sum/(i+1)) * missing) + sum;
+    i = i + missing;
   }
   return (Math.floor(sum / (i+1)))
 
