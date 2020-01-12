@@ -52,7 +52,9 @@ const job = new CronJob({
 });
 
 
-job;
+
+
+
 
 
 fs.stat("./file.txt", function(err, stats){
