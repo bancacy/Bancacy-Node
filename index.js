@@ -109,24 +109,31 @@ rl1.on('close', function() {
     count = line;
     
   });
+
   rl2.on('close', function() {
     // adding the missing data from the last recived data
 while(missingDataSec > 0  && lastData != undefined){
   console.log(count);
+
  if(count > priceArrayFile.length-2){
    priceArrayFile[priceArrayFile.length-1] = lastData;
    count =0;
    missingDataSec--;
  }
+
  else{
+
  priceArrayFile[count] = lastData;
  count++;
  missingDataSec--;
  }
 }
+
 if(restored){
+  
  index =count;
  }
+
  console.log('arr', priceArrayFile);
 
   });
@@ -182,13 +189,16 @@ setTimeout(startLog, freqOfData * 1000);
 // Get BNY price in ETH from Stex
 var request = require('request');
 request('https://api3.stex.com/public/ticker/1073', function (error, response, data) {
+
   if (!error && response.statusCode == 200) {
     var parsedData = JSON.parse(data);
     var ethPrice = parsedData.data.last;
 
 // Get ETH price in USD from CoinBase
 request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, response, data) {
+
   if (!error && response.statusCode == 200) {
+
     var parsedData = JSON.parse(data);
     var USDprice = parsedData.data.amount;
     // TEST ETH = 150
@@ -196,15 +206,17 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
     var priceBNY = USDprice * ethPrice;
     var finalBNY = Math.pow(10,18)* priceBNY;
     finalBNY = Math.floor(finalBNY);
+
     if (index == priceArrayFile.length-1){
-      priceArrayFile[index] = finalBNY;
-        
+
+        priceArrayFile[index] = finalBNY;
         file_RW();
         index=0;
     }
+
     else{
-      priceArrayFile[index] = finalBNY;
         
+        priceArrayFile[index] = finalBNY;   
         console.log(index + " real");
         file_RW();
         index++;
@@ -233,12 +245,14 @@ writeStream2.write((`${index}\n`));
 
 // the finish event is emitted when all data has been flushed from the stream
 writeStream2.on('finish', () => {
+
    console.log(`wrote the pointer into the file ${pathName2}`);
    console.log(index);
 });
 
 // handle the errors on the write process
 writeStream2.on('error', (err) => {
+
     console.error(`There is an error writing the file ${pathName2} => ${err}`)
 });
 writeStream2.end();
@@ -249,11 +263,13 @@ priceArrayFile.forEach(value => writeStream.write(`${value}\n`));
 
 // the finish event is emitted when all data has been flushed from the stream
 writeStream.on('finish', () => {
+
    console.log(`wrote all the array data to file ${pathName}`);
 });
 
 // handle the errors on the write process
 writeStream.on('error', (err) => {
+
     console.error(`There is an error writing the file ${pathName} => ${err}`)
 });
 
@@ -351,6 +367,7 @@ let transaction = {
             web3.eth.sendSignedTransaction(sign(transaction,privateKey), async (error, txHash) => {
               //console.log(txHash);
               if(txHash) { 
+
                 console.log("Data Sent!");
                 console.log(txHash);
               }
@@ -392,24 +409,29 @@ function averageArray (array){
   for(i = 0;  i < array.length ; i++){
 
     if(array[i] != undefined){
+
      sum = sum + parseInt(array[i]);
     }
     else{
+
       missing++;
     }
   }
+
   if(missing > 0 && missing < 10){
+
     sum= ((sum/(i+1)) * missing) + sum;
     i = i + missing;
   }
+
   return (Math.floor(sum / (i+1)))
 
 }
 
 //Returns the creation time of the parm file
 function createdDate (file) {  
-  const { birthtime  } = Fs.statSync(file);
 
+  const { birthtime  } = Fs.statSync(file);
   return birthtime 
 }
 
