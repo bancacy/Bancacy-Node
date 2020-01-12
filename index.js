@@ -35,7 +35,7 @@ const priceArrayFile = new Array(arraySize);
 // Call sendReport evrey 6 hours
 const job = new CronJob({
   // Run at 20:00 Central time
-  cronTime: '1,2 18 * * *',
+  cronTime: '0 20,02,08,14 * * *',
   onTick: function() {
       // Send report
       console.log('Sending Report!!');
