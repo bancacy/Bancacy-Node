@@ -31,6 +31,30 @@ const priceArrayFile = new Array(arraySize);
 
 
 
+
+// Call sendReport evrey 6 hours
+const job = new CronJob({
+  // Run at 20:00 Central time
+  cronTime: '1,2 18 * * *',
+  onTick: function() {
+      // Send report
+      console.log('Sending Report!!');
+      if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
+      var avg = averageArray(priceArrayFile);
+      sendReport(avg);
+      }
+      else{
+        console.log("Empty array, Node must run at least 1 week to provide data");
+    }
+  },
+  start: true,
+  timeZone: 'US/Central'
+});
+
+
+job;
+
+
 fs.stat("./file.txt", function(err, stats){
   if(!err){
    seconds = (new Date().getTime() - stats.mtime) / 1000;
@@ -243,24 +267,7 @@ writeStream.end();
 
 
 
-// Call sendReport evrey 6 hours
-const job = new CronJob({
-  // Run at 20:00 Central time
-  cronTime: '00 14 19 * * 1-5',
-  onTick: function() {
-      // Send report
-      console.log('Sending Report!!');
-      if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
-      var avg = averageArray(priceArrayFile);
-      sendReport(avg);
-      }
-      else{
-        console.log("Empty array, Node must run at least 1 week to provide data");
-    }
-  },
-  start: true,
-  timeZone: 'US/Central'
-});
+
 
 
 startLog();
