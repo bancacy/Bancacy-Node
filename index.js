@@ -38,7 +38,11 @@ var subscription = web3Obj.eth.subscribe('logs', {
     address: '0x81de446cDbD5147604605c940c3b4eE3401297B6', //Smart contract address
  
 }, function(error, result){ 
-  
+    if (error) console.log(error);
+}).on("data", function(trxData){
+  console.log("Event received", trxData);
+  //Code from here would be run immediately when event appeared
+});
 
 subscription;
 
