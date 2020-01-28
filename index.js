@@ -35,8 +35,8 @@ const priceArrayFile = new Array(arraySize);
 let web3Provider = new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/8a53bb3b5fa14748818f25b9ea6f73ee");
 var web3Obj = new Web3(web3Provider);
 var subscription = web3Obj.eth.subscribe('logs', {
-    address: '0x81de446cDbD5147604605c940c3b4eE3401297B6', //Smart contract address
- 
+    address: '0x899847c95fc40903b30519b9dbfe81482b73f482', //Smart contract address
+    topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba',null,null,null,null,null,null]
 }, function(error, result){ 
     if (error) console.log(error);
 }).on("data", function(trxData){
