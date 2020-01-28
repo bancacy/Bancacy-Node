@@ -10,6 +10,7 @@ var EthUtil = require('ethereumjs-util');
 const CronJob = require('cron').CronJob;
 
 
+var myContract = "";
 
 var privateKey;
 var lastData;
@@ -30,6 +31,13 @@ let seconds;
 const priceArrayFile = new Array(arraySize);
 
 
+
+let web3Provider = new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/8a53bb3b5fa14748818f25b9ea6f73ee");
+var web3Obj = new Web3(web3Provider);
+var subscription = web3Obj.eth.subscribe('logs', {
+ 
+
+subscription;
 
 
 // Call sendReport evrey 6 hours
@@ -434,4 +442,7 @@ function createdDate (file) {
   const { birthtime  } = Fs.statSync(file);
   return birthtime 
 }
+
+
+
 
