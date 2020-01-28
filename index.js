@@ -60,7 +60,6 @@ var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
 // Getting Address from the Wallet
 var addr = wallet.getAddressString();
 
-console.log("Your Ethereum Address is:" + addr);
 
 
 
@@ -146,7 +145,7 @@ var subscription = web3Obj.eth.subscribe('logs', {
     if (error) console.log(error);
 }).on("data", function(trxData){
   console.log("Event received", trxData);
-  //Code from here would be run immediately when event appeared
+  sendReport('8');
   
 });
 
