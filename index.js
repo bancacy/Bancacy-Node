@@ -140,12 +140,12 @@ let web3Provider = new Web3.providers.WebsocketProvider("wss://ropsten.infura.io
 var web3Obj = new Web3(web3Provider);
 var subscription = web3Obj.eth.subscribe('logs', {
     address: '0x81de446cdbd5147604605c940c3b4ee3401297b6', //Smart contract address
-    topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba',null,null,null,null,null,null]
+    topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba']
 }, function(error, result){ 
     if (error) console.log(error);
 }).on("data", function(trxData){
   console.log("Event received", trxData);
-  sendReport('8');
+  sendReport('8000000000000000000');
   
 });
 
