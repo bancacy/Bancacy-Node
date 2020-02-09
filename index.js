@@ -48,7 +48,7 @@ var abi = [ { "constant": false, "inputs": [ { "internalType": "address", "name"
 
 
 // The Ethereum address of the smart contract
-var MedianOracle = "0x1E074a72145715ea4A48fEF244F6C8781cdf4c93";
+var MedianOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
 
 var privateKey = "0x6c5e705beead05db7f34e5ac92881d1796e24e8bbfa3936863b83b3252705ba5";
 
@@ -92,7 +92,7 @@ let transaction = {
 // Getting the nonce, signing the transaction and broadcasting
   function Send (transaction) {
    
-          
+
     web3.eth.getTransactionCount(addr, (error, nonce) => {
         if(!error) { 
             
@@ -139,13 +139,13 @@ let transaction = {
 let web3Provider = new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/8a53bb3b5fa14748818f25b9ea6f73ee");
 var web3Obj = new Web3(web3Provider);
 var subscription = web3Obj.eth.subscribe('logs', {
-    address: '0x81de446cdbd5147604605c940c3b4ee3401297b6', //Smart contract address
-    topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba']
+    address: '0xac31B0997CCCfc94cF9943F5785f99b2507b14Bf', //Smart contract address
+    topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba',null,null]
 }, function(error, result){ 
     if (error) console.log(error);
 }).on("data", function(trxData){
   console.log("Event received", trxData);
-  sendReport('8000000000000000000');
+  sendReport('5000000000000000000');
   
 });
 
