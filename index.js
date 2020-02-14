@@ -34,11 +34,18 @@ const priceArrayFile = new Array(arraySize);
 
 
 
+
+
+
+
+
+
+
 function sendReport(dataReport){
 
 
 // Show web3 where it needs to look for the Ethereum node
-web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/8a53bb3b5fa14748818f25b9ea6f73ee'));
+web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 
 // Define the ABI of the contract, used to return the desired values
@@ -136,7 +143,7 @@ let transaction = {
 
 
 
-let web3Provider = new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws/v3/8a53bb3b5fa14748818f25b9ea6f73ee");
+let web3Provider = new Web3.providers.WebsocketProvider("ws://localhost:8546");
 var web3Obj = new Web3(web3Provider);
 var subscription = web3Obj.eth.subscribe('logs', {
     address: '0xac31B0997CCCfc94cF9943F5785f99b2507b14Bf', //Smart contract address
