@@ -10,7 +10,6 @@ var EthUtil = require('ethereumjs-util');
 const CronJob = require('cron').CronJob;
 
 
-var myContract = "";
 
 var privateKey;
 var lastData;
