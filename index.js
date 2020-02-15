@@ -141,9 +141,10 @@ let transaction = {
 
 
 
-
+// Seting up the event subscription, once recived - it will cheack if the report is valid and send it.
 let web3Provider = new Web3.providers.WebsocketProvider("ws://localhost:8546");
 var web3Obj = new Web3(web3Provider);
+
 var subscription = web3Obj.eth.subscribe('logs', {
     address: '0xac31B0997CCCfc94cF9943F5785f99b2507b14Bf', //Smart contract address
     topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba',null,null]
@@ -168,6 +169,11 @@ var subscription = web3Obj.eth.subscribe('logs', {
 });
 
 subscription;
+
+
+
+
+
 
 // Call sendReport evrey 6 hours
 const job = new CronJob({
