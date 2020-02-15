@@ -29,8 +29,11 @@ const Fs = require('fs');
 let seconds;
 const priceArrayFile = new Array(arraySize);
 
-// The Ethereum address of the smart contract
+// The Ethereum address of the MedianOracle smart contract
 var MedianOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
+
+// The Ethereum address of Bancacy - BNY
+var BancacyAddress = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
 
 
 
@@ -145,7 +148,7 @@ let web3Provider = new Web3.providers.WebsocketProvider("ws://localhost:8546");
 var web3Obj = new Web3(web3Provider);
 
 var subscription = web3Obj.eth.subscribe('logs', {
-    address: '0xac31B0997CCCfc94cF9943F5785f99b2507b14Bf', //Smart contract address
+    address: BancacyAddress, 
     topics: ['0xb17ff9ded3a31df323e52546588eb044a74643da514d71f37ad0e07b010b96ba',null,null]
 }, function(error, result){ 
     if (error) console.log(error);
@@ -174,7 +177,11 @@ subscription;
 
 
 
-// Call sendReport evrey 6 hours
+
+
+
+
+// cron Job for calling sendReport with the node report evrey 6 hours - prior to BNY Token Rebase
 const job = new CronJob({
   // Run at 20:00 Central time
   cronTime: '0 20,02,08,14 * * *',
@@ -198,7 +205,9 @@ const job = new CronJob({
 
 
 
-
+//Cheack if theres stored file (file.txt), if yes, cheack if the last file change was in the last 10".
+// If the file is valid, it will be written to the data array and countinue from the last data on the file.
+// Else it will start getting data and write it to new empty file.
 fs.stat("./file.txt", function(err, stats){
   if(!err){
    seconds = (new Date().getTime() - stats.mtime) / 1000;
@@ -225,8 +234,6 @@ rl1.on('line', function(line) {
   count++;
   
 });
-
-
 
 
 rl1.on('close', function() {
