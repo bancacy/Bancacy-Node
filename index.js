@@ -29,6 +29,8 @@ const Fs = require('fs');
 let seconds;
 const priceArrayFile = new Array(arraySize);
 
+// The Ethereum address of the smart contract
+var MedianOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
 
 
 
@@ -38,8 +40,7 @@ const priceArrayFile = new Array(arraySize);
 
 
 
-
-
+// Function for sending the report to the MedianOracle smart contract
 function sendReport(dataReport){
 
 
@@ -53,9 +54,6 @@ var abi = [ { "constant": false, "inputs": [ { "internalType": "address", "name"
 
 
 
-// The Ethereum address of the smart contract
-var MedianOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
-
 var privateKey = "0x6c5e705beead05db7f34e5ac92881d1796e24e8bbfa3936863b83b3252705ba5";
 
 // privateKeyBuffer
@@ -65,7 +63,6 @@ var privateKeyBuffer = EthUtil.toBuffer(privateKey);
 var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
 // Getting Address from the Wallet
 var addr = wallet.getAddressString();
-
 
 
 
@@ -87,10 +84,6 @@ let transaction = {
 
   // Sending the transaction
   Send(transaction);
-
-
-
-
 
 
 
@@ -135,6 +128,12 @@ let transaction = {
 } 
 
 }
+
+
+
+
+
+
 
 
 
