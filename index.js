@@ -34,7 +34,36 @@ var MedianOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
 
 // The Ethereum address of Bancacy - BNY
 var BancacyAddress = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
+// Eth Address of the user - coumputed via the provided private key
+var addr;
 
+
+
+
+
+
+// input from the user - private key
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+
+// Wait for user input - private key
+rl.question('Please enter your Ethereum private-key:', (answer) => {
+    // privateKey is the user's input
+ privateKey = answer;
+
+// privateKeyBuffer
+var privateKeyBuffer = EthUtil.toBuffer(privateKey);
+
+// Generating Wallet from the private key
+var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
+// Getting Address from the Wallet
+ addr = wallet.getAddressString();
+
+// closing rI
+rl.close();
 
 
 
@@ -57,15 +86,6 @@ var abi = [ { "constant": false, "inputs": [ { "internalType": "address", "name"
 
 
 
-var privateKey = "0x6c5e705beead05db7f34e5ac92881d1796e24e8bbfa3936863b83b3252705ba5";
-
-// privateKeyBuffer
-var privateKeyBuffer = EthUtil.toBuffer(privateKey);
-
-// Generating Wallet from the private key
-var wallet = Wallet.fromPrivateKey(privateKeyBuffer);
-// Getting Address from the Wallet
-var addr = wallet.getAddressString();
 
 
 
@@ -305,22 +325,6 @@ if(restored){
 
 
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-
-// Wait for user input - private key
-rl.question('Please enter your Ethereum private-key:', (answer) => {
-    // privateKey is the user's input
- privateKey = answer;
-
-// closing rI
-rl.close();
-
-
-
 
 
 
@@ -437,7 +441,6 @@ writeStream.end();
 
 
 
-startLog();
 
 
 
@@ -449,7 +452,7 @@ startLog();
 
 
 
-});
+
 
 
 
@@ -481,6 +484,8 @@ function averageArray (array){
 
 }
 
+
+
 //Returns the creation time of the parm file
 function createdDate (file) {  
 
@@ -491,3 +496,4 @@ function createdDate (file) {
 
 
 
+});
