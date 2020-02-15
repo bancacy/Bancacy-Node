@@ -150,8 +150,20 @@ var subscription = web3Obj.eth.subscribe('logs', {
 }, function(error, result){ 
     if (error) console.log(error);
 }).on("data", function(trxData){
-  console.log("Event received", trxData);
-  sendReport('5000000000000000000');
+
+   // Send report
+   console.log("Event received", trxData);
+   
+   if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
+   console.log('Sending Report!!');
+   var avg = averageArray(priceArrayFile);
+   sendReport(avg);
+   }
+   else{
+     console.log("Empty array, Node must run at least 1 week to provide data");
+ }
+  
+ 
   
 });
 
