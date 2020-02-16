@@ -32,6 +32,9 @@ const priceArrayFile = new Array(arraySize);
 // The Ethereum address of the MedianOracle smart contract
 var MedianOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
 
+// The Ethereum address of the sapOracle smart contract
+var sapOracle = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
+
 // The Ethereum address of Bancacy - BNY
 var BancacyAddress = "0x3DC072445c1aD51603b3A4cB2B6E4c3f99047CAF";
 // Eth Address of the user - coumputed via the provided private key
