@@ -183,7 +183,9 @@ var subscription = web3Obj.eth.subscribe('logs', {
    
    // Cheack if the Data array is not empty
    if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
+
    console.log('Sending Report!!');
+
    // getting the array average with averageArray function
    var avg = averageArray(priceArrayFile);
    if(avg != false){
@@ -192,6 +194,17 @@ var subscription = web3Obj.eth.subscribe('logs', {
    else{
     console.log("Array has to many missing indexes");
    }
+   
+   var avg6 = averageArray(priceArrayFile);
+    if(avg6 != false){
+    sendReport(avg6);
+   }
+   else{
+    console.log("Array has to many missing indexes");
+   }
+
+  
+
    }
    else{
      console.log("Empty array, Node must run at least 1 week to provide data");
@@ -454,12 +467,6 @@ writeStream.end();
 
 
 
-pointer = 2
-sap = 4
-0 1 2 3 4 5 6          
-
-sap - pointer = 4 - 2 = 2  
-L.6 - 3 = L[3]
 
 
 //Returns the average of the array from pointer back Sap indexes
