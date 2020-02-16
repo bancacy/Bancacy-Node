@@ -17,7 +17,8 @@ var  restored = false;
 var count= 0;
 var index = 0;
 
-var arraySize = 16; // 10080 on mainnet
+var arraySize = 16; // 10080 on mainnet - 7 Days
+var Sap = 4;  // 360 on mainnet - 6 Hours
 var freqOfData = 30; // 60 on Mainnet
 var restoringWindow = 600;
 
@@ -178,8 +179,10 @@ var subscription = web3Obj.eth.subscribe('logs', {
    // Send report
    console.log("Event received", trxData);
    
+   // Cheack if the Data array is not empty
    if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
    console.log('Sending Report!!');
+   // getting the array average with averageArray function
    var avg = averageArray(priceArrayFile);
    sendReport(avg);
    }
@@ -209,7 +212,8 @@ const job = new CronJob({
   onTick: function() {
       // Send report
       console.log('Sending Report!!');
-      if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined){
+      if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined)
+      {
       var avg = averageArray(priceArrayFile);
       sendReport(avg);
       }
