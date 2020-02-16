@@ -113,7 +113,7 @@ let transaction = {
 // Getting the nonce, signing the transaction and broadcasting
   function Send (transaction) {
    
-
+    // get the nonce (Transactions Count)
     web3.eth.getTransactionCount(addr, (error, nonce) => {
         if(!error) { 
             
@@ -163,6 +163,8 @@ let transaction = {
 
 
 // Seting up the event subscription, once recived - it will cheack if the report is valid and send it.
+// This is used when users want to on-chain exchange between BNY and XBNY
+// This event is limited to 1 call per 10 minitues  
 let web3Provider = new Web3.providers.WebsocketProvider("ws://localhost:8546");
 var web3Obj = new Web3(web3Provider);
 
