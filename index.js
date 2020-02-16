@@ -186,7 +186,12 @@ var subscription = web3Obj.eth.subscribe('logs', {
    console.log('Sending Report!!');
    // getting the array average with averageArray function
    var avg = averageArray(priceArrayFile);
+   if(avg != false){
    sendReport(avg);
+   }
+   else{
+    console.log("Array has to many missing indexes");
+   }
    }
    else{
      console.log("Empty array, Node must run at least 1 week to provide data");
@@ -217,7 +222,13 @@ const job = new CronJob({
       if(priceArrayFile[0] != undefined && priceArrayFile[priceArrayFile.length-1] != undefined)
       {
       var avg = averageArray(priceArrayFile);
-      sendReport(avg);
+      if(avg != false){
+        sendReport(avg);
+        }
+        else{
+         console.log("Array has to many missing indexes");
+        }
+    
       }
       else{
         console.log("Empty array, Node must run at least 1 week to provide data");
@@ -445,9 +456,9 @@ writeStream.end();
 
 pointer = 5
 sap = 4
-0 1 2 3 4 5           
+0 1 2 3 4 5 6          
 
-sap - pointer = 4 - 1 = 3 
+sap - pointer = 4 - 5 =  
 L.6 - 3 = L[3]
 
 
@@ -470,9 +481,10 @@ function PartAverageArray (array,pointer){
   }
  
 
-  
+
+  // no need to clock the indexes
  if (!clock){ 
-  for(i = 0;  i < array.length ; i++){
+  for(i = pointer - Sap;  i < pointer ; i++){
 
     if(array[i] != undefined){
 
@@ -489,8 +501,12 @@ function PartAverageArray (array,pointer){
     sum= ((sum/(i+1)) * missing) + sum;
     i = i + missing;
   }
-
-  return (Math.floor(sum / (i+1)))
+  if(missing > 10){
+    return (false);
+  }
+  else{
+  return (Math.floor(sum / (i+1)));
+  }
 
 }
 }
@@ -530,8 +546,12 @@ function averageArray (array){
     i = i + missing;
   }
 
-  return (Math.floor(sum / (i+1)))
-
+  if(missing > 10){
+    return (false);
+  }
+  else{
+  return (Math.floor(sum / (i+1)));
+  }
 }
 
 
