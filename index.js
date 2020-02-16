@@ -81,7 +81,7 @@ rl.close();
 
 
 // Function for sending the report to the MedianOracle smart contract
-function sendReport(dataReport){
+function sendReport(dataReport, contractAddress){
 
 
 // Show web3 where it needs to look for the Ethereum node
@@ -99,7 +99,7 @@ let contract = new web3.eth.Contract(abi,addr);
 data = contract.methods.pushReport(dataReport).encodeABI();
 // Build the transaction
 let transaction = {
-    to: MedianOracle,
+    to: contractAddress,
     from : addr,
     value: 0,
     gas: 400000,
@@ -189,15 +189,15 @@ var subscription = web3Obj.eth.subscribe('logs', {
    // getting the array average with averageArray function
    var avg = averageArray(priceArrayFile);
    if(avg != false){
-   sendReport(avg);
+   sendReport(avg,MedianOracle);
    }
    else{
     console.log("Array has to many missing indexes");
    }
-   
-   var avg6 = averageArray(priceArrayFile);
+
+   var avg6 = PartAverageArray(priceArrayFile);
     if(avg6 != false){
-    sendReport(avg6);
+    sendReport(avg6,sapOracle);
    }
    else{
     console.log("Array has to many missing indexes");
