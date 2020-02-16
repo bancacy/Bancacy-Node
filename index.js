@@ -48,12 +48,14 @@ var draft = 0x6c5e705beead05db7f34e5ac92881d1796e24e8bbfa3936863b83b3252705ba5;
 
 
 
+
+
+
 // input from the user - private key
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
 
 // Wait for user input - private key
 rl.question('Please enter your Ethereum private-key:', (answer) => {
@@ -441,17 +443,60 @@ writeStream.end();
 
 
 
+pointer = 5
+sap = 4
+0 1 2 3 4 5           
+
+sap - pointer = 4 - 1 = 3 
+L.6 - 3 = L[3]
 
 
+//Returns the average of the array from pointer back Sap indexes
+function PartAverageArray (array,pointer){
+
+  var i = 0;
+  var sum = 0;
+  var missing =0;
+  var zero = false;
+  var clock = false;
+
+  if(Sap >= pointer)
+  {
+  clock = true;
+   var startPointer = Sap - pointer;
+   if (startPointer == 0){
+    zero = true;
+   }
+  }
+ 
+
+  
+ if (!clock){ 
+  for(i = 0;  i < array.length ; i++){
+
+    if(array[i] != undefined){
+
+     sum = sum + parseInt(array[i]);
+    }
+    else{
+
+      missing++;
+    }
+  }
+
+  if(missing > 0 && missing < 10){
+
+    sum= ((sum/(i+1)) * missing) + sum;
+    i = i + missing;
+  }
+
+  return (Math.floor(sum / (i+1)))
+
+}
+}
 
 
-
-
-
-
-
-
-
+}
 
 
 
