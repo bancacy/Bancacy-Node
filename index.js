@@ -195,7 +195,7 @@ var subscription = web3Obj.eth.subscribe('logs', {
     console.log("Array has to many missing indexes");
    }
 
-   var avg6 = PartAverageArray(priceArrayFile);
+   var avg6 = PartAverageArray(priceArrayFile,index);
     if(avg6 != false){
     sendReport(avg6,sapOracle);
    }
