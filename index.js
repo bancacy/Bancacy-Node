@@ -454,11 +454,11 @@ writeStream.end();
 
 
 
-pointer = 5
+pointer = 2
 sap = 4
 0 1 2 3 4 5 6          
 
-sap - pointer = 4 - 5 =  
+sap - pointer = 4 - 2 = 2  
 L.6 - 3 = L[3]
 
 
@@ -479,11 +479,11 @@ function PartAverageArray (array,pointer){
     zero = true;
    }
   }
+
+
  
-
-
   // no need to clock the indexes
- if (!clock){ 
+ if (clock == false){ 
   for(i = pointer - Sap;  i < pointer ; i++){
 
     if(array[i] != undefined){
@@ -509,9 +509,56 @@ function PartAverageArray (array,pointer){
   }
 
 }
+
+
+
+
+
+
+
+else{
+   
+    for(i = 0;  i < pointer ; i++){
+  
+      if(array[i] != undefined){
+  
+       sum = sum + parseInt(array[i]);
+      }
+      else{
+  
+        missing++;
+      }
+    }
+
+    if(zero != true){
+
+    for(i = array.length - startPointer;  i < array.length ; i++){
+  
+      if(array[i] != undefined){
+  
+       sum = sum + parseInt(array[i]);
+      }
+      else{
+  
+        missing++;
+      }
+    }
+  }
+
+
+  
+    if(missing > 0 && missing < 10){
+  
+      sum= ((sum/(i+1)) * missing) + sum;
+      i = i + missing;
+    }
+    if(missing > 10){
+      return (false);
+    }
+    else{
+    return (Math.floor(sum / (i+1)));
+    }
 }
-
-
 }
 
 
