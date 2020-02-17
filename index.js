@@ -197,6 +197,7 @@ var subscription = web3Obj.eth.subscribe('logs', {
    }
 
    var avg6 = PartAverageArray(priceArrayFile,index);
+   
     if(avg6 != false){
     sendReport(avg6,sapOracle);
    }
@@ -366,7 +367,9 @@ if(restored){
 startLog();
 
 function startLog() {
-
+  console.log(index);
+  console.log(priceArrayFile);
+  console.log("             ");
   console.log(averageArray(priceArrayFile));
 console.log(PartAverageArray(priceArrayFile,Sap));
    
@@ -470,7 +473,8 @@ writeStream.end();
 
 
 
-
+11
+4 Sap
 
 //Returns the average of the array from pointer back Sap indexes
 function PartAverageArray (array,pointer){
@@ -580,7 +584,7 @@ else{
 
 //Returns the average of the array
 function averageArray (array){
- 
+  var i = 0;
   var sum = 0;
   var missing =0;
 
