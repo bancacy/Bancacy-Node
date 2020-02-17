@@ -51,7 +51,6 @@ var draft = 0x6c5e705beead05db7f34e5ac92881d1796e24e8bbfa3936863b83b3252705ba5;
 
 
 
-
 // input from the user - private key
 const rl = readline.createInterface({
   input: process.stdin,
@@ -370,8 +369,8 @@ function startLog() {
   console.log(index);
   console.log(priceArrayFile);
   console.log("             ");
-  console.log(averageArray(priceArrayFile));
-console.log(PartAverageArray(priceArrayFile,Sap));
+ 
+console.log(PartAverageArray(priceArrayFile,index));
    
 setTimeout(startLog, freqOfData * 1000);
 
@@ -418,8 +417,7 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
 })
 
 
-console.log(averageArray(priceArrayFile));
-console.log(PartAverageArray(priceArrayFile,Sap));
+
 }
 
 
@@ -473,18 +471,16 @@ writeStream.end();
 
 
 
-11
-4 Sap
 
 //Returns the average of the array from pointer back Sap indexes
 function PartAverageArray (array,pointer){
-
+ 
   var i = 0;
   var sum = 0;
   var missing =0;
   var zero = false;
   var clock = false;
-
+  console.log(Sap + "     pointer" + pointer);
   if(Sap >= pointer)
   {
   clock = true;
@@ -494,12 +490,15 @@ function PartAverageArray (array,pointer){
    }
   }
 
-
+ 
  
   // no need to clock the indexes
  if (clock == false){ 
-  for(i = pointer - Sap;  i < pointer ; i++){
-
+  i = pointer - Sap;
+  
+  for(i ;  i < pointer ; i++){
+    console.log(" the index is : " + i);
+    console.log(" this object is : " + array[i]);
     if(array[i] != undefined){
 
      sum = sum + parseInt(array[i]);
@@ -518,7 +517,9 @@ function PartAverageArray (array,pointer){
     return (false);
   }
   else{
-  return (Math.floor(sum / (i)));
+   
+    
+  return (Math.floor(sum / (Sap)));
   }
 
 }
