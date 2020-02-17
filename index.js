@@ -508,8 +508,7 @@ function PartAverageArray (array,pointer){
 
   if(missing > 0 && missing < 10){
 
-    sum= ((sum/(i+1)) * missing) + sum;
-    i = i + missing;
+    sum= ((sum/(i-missing)) * missing) + sum;
   }
   if(missing > 10){
     return (false);
@@ -559,8 +558,8 @@ else{
   
     if(missing > 0 && missing < 10){
   
-      sum= ((sum/(i+1)) * missing) + sum;
-      i = i + missing;
+      sum= ((sum/(i-missing)) * missing) + sum;
+    
     }
     if(missing > 10){
       return (false);
@@ -581,7 +580,7 @@ else{
 
 //Returns the average of the array
 function averageArray (array){
-  var i = 0;
+ 
   var sum = 0;
   var missing =0;
 
@@ -599,8 +598,8 @@ function averageArray (array){
 
   if(missing > 0 && missing < 10){
 
-    sum= ((sum/(i+1)) * missing) + sum;
-    i = i + missing;
+    sum= ((sum/(i-missing)) * missing) + sum;
+    
   }
 
   if(missing > 10){
