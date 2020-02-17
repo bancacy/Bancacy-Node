@@ -511,7 +511,7 @@ function PartAverageArray (array,pointer){
 
   if(missing > 0 && missing < 10){
 
-    sum= ((sum/(i-missing)) * missing) + sum;
+    sum= ((sum/(Sap-missing)) * missing) + sum;
   }
   if(missing > 10){
     return (false);
@@ -563,14 +563,14 @@ else{
   
     if(missing > 0 && missing < 10){
   
-      sum= ((sum/(i-missing)) * missing) + sum;
+      sum= ((sum/(Sap-missing)) * missing) + sum;
     
     }
     if(missing > 10){
       return (false);
     }
     else{
-    return (Math.floor(sum / (i)));
+    return (Math.floor(sum / (Sap)));
     }
 }
 }
