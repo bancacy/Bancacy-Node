@@ -51,6 +51,7 @@ var draft = 0x6c5e705beead05db7f34e5ac92881d1796e24e8bbfa3936863b83b3252705ba5;
 
 
 
+
 // input from the user - private key
 const rl = readline.createInterface({
   input: process.stdin,
@@ -366,7 +367,8 @@ startLog();
 
 function startLog() {
 
-  
+  console.log(averageArray(priceArrayFile));
+console.log(PartAverageArray(priceArrayFile,Sap));
    
 setTimeout(startLog, freqOfData * 1000);
 
@@ -413,7 +415,8 @@ request('https://api.coinbase.com/v2/prices/ETH-USD/spot', function (error, resp
 })
 
 
-
+console.log(averageArray(priceArrayFile));
+console.log(PartAverageArray(priceArrayFile,Sap));
 }
 
 
@@ -512,7 +515,7 @@ function PartAverageArray (array,pointer){
     return (false);
   }
   else{
-  return (Math.floor(sum / (i+1)));
+  return (Math.floor(sum / (i)));
   }
 
 }
@@ -563,7 +566,7 @@ else{
       return (false);
     }
     else{
-    return (Math.floor(sum / (i+1)));
+    return (Math.floor(sum / (i)));
     }
 }
 }
@@ -604,7 +607,7 @@ function averageArray (array){
     return (false);
   }
   else{
-  return (Math.floor(sum / (i+1)));
+  return (Math.floor(sum / (i)));
   }
 }
 
